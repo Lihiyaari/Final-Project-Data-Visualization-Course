@@ -12,81 +12,122 @@
       padding: 0;
       color: #333;
     }
-
     header {
       background: linear-gradient(to right, #4e54c8, #8f94fb);
       padding: 20px;
       color: white;
       text-align: center;
     }
-
     h1 {
       margin: 0;
       font-size: 2.5em;
       animation: fadeInDown 1s ease-in-out;
     }
-
     section {
       padding: 40px 20px;
       text-align: center;
       border-bottom: 1px solid #ccc;
     }
-
     h2 {
       font-size: 1.8em;
       margin-bottom: 10px;
     }
-
     .viz-container {
       margin: 20px auto;
       max-width: 1000px;
       box-shadow: 0 0 20px rgba(0,0,0,0.1);
       border-radius: 10px;
       overflow: hidden;
+      background: white;
     }
-
-    iframe {
+    .tableau-viz {
       width: 100%;
       height: 600px;
       border: none;
     }
-
+    .loading-message {
+      padding: 40px;
+      text-align: center;
+      color: #666;
+      font-style: italic;
+    }
     @keyframes fadeInDown {
       from {opacity: 0; transform: translateY(-20px);}
       to {opacity: 1; transform: translateY(0);}
     }
+    .dashboard-link {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 16px;
+      background: #4e54c8;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 0.9em;
+    }
+    .dashboard-link:hover {
+      background: #3a3f9a;
+    }
   </style>
 </head>
 <body>
-
   <header>
     <h1>📊 ניתוח מכירות ורווחים בחנות בגדים</h1>
     <p>פרויקט סיום בקורס ויזואליזציה של מידע</p>
   </header>
-
-  <section id="operational">
-    <h2>🧥 מכירות לפי קטגוריות ואזורים</h2>
-    <p>סקירה של הקטגוריות הכי נמכרות בכל אזור בארץ 🎯</p>
+  
+  <section id="dashboard1">
+    <h2>🧥 דאשבורד ראשון - ניתוח מכירות</h2>
+    <p>סקירה של ביצועי המכירות לפי קטגוריות ואזורים 🎯</p>
     <div class="viz-container">
-      <iframe src="https://public.tableau.com/views/DASH1_17115312345670/קטגוריותואזורים?:embed=true&:display_count=yes"></iframe>
+      <iframe 
+        class="tableau-viz"
+        src="https://public.tableau.com/views/DASH3_17468755147630/sheet1?:embed=yes&:display_count=no&:showVizHome=no&:origin=viz_share_link&:device=desktop"
+        onload="this.style.display='block'; this.nextElementSibling.style.display='none';">
+      </iframe>
+      <div class="loading-message">טוען דאשבורד...</div>
     </div>
+    <a href="https://public.tableau.com/views/DASH3_17468755147630/sheet1" target="_blank" class="dashboard-link">
+      פתח דאשבורד בחלון נפרד 🔗
+    </a>
   </section>
 
-  <section id="management">
-    <h2>🛒 השוואת ערוצי מכירה לאורך זמן</h2>
-    <p>אונליין מול חנויות פיזיות בשנים האחרונות 📈</p>
+  <section id="dashboard2">
+    <h2>🛒 דאשבורד שני - השוואת ערוצים</h2>
+    <p>אונליין מול חנויות פיזיות לאורך זמן 📈</p>
     <div class="viz-container">
-      <iframe src="https://public.tableau.com/views/DASH2_17465432109876/מכירותבערוצים?:embed=true&:display_count=yes"></iframe>
+      <iframe 
+        class="tableau-viz"
+        src="https://public.tableau.com/views/DASH3_17468755147630/sheet2?:embed=yes&:display_count=no&:showVizHome=no&:origin=viz_share_link&:device=desktop"
+        onload="this.style.display='block'; this.nextElementSibling.style.display='none';">
+      </iframe>
+      <div class="loading-message">טוען דאשבורד...</div>
     </div>
+    <a href="https://public.tableau.com/views/DASH3_17468755147630/sheet2" target="_blank" class="dashboard-link">
+      פתח דאשבורד בחלון נפרד 🔗
+    </a>
   </section>
 
-  <section id="strategic">
-    <h2>🏷️ השוואת מותגים ורווחיות</h2>
+  <section id="dashboard3">
+    <h2>🏷️ דאשבורד שלישי - מותגים ורווחיות</h2>
     <p>איזה מותג הכי רווחי? ומאיזה צבע כדאי להיפרד? 👕📉</p>
     <div class="viz-container">
-      <iframe src="https://public.tableau.com/views/DASH3_17468755147630/sheet6?:embed=true&:display_count=yes"></iframe>
+      <iframe 
+        class="tableau-viz"
+        src="https://public.tableau.com/views/DASH3_17468755147630/sheet3?:embed=yes&:display_count=no&:showVizHome=no&:origin=viz_share_link&:device=desktop"
+        onload="this.style.display='block'; this.nextElementSibling.style.display='none';">
+      </iframe>
+      <div class="loading-message">טוען דאשבורד...</div>
     </div>
+    <a href="https://public.tableau.com/views/DASH3_17468755147630/sheet3" target="_blank" class="dashboard-link">
+      פתח דאשבורד בחלון נפרד 🔗
+    </a>
   </section>
 
+  <section>
+    <h2>📋 על הפרויקט</h2>
+    <p>פרויקט זה מציג ניתוח מקיף של נתוני מכירות בחנות בגדים, כולל השוואות בין אזורים, ערוצי מכירה ומותגים שונים.</p>
+    <p>הדאשבורדים נוצרו באמצעות Tableau Public ומציגים תובנות עסקיות חשובות לקבלת החלטות.</p>
+  </section>
 </body>
 </html>
