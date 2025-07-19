@@ -1,130 +1,198 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>🎯 פרויקט סיום - ניתוח מכירות בחנות בגדים</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #f0f8ff, #e0eafc);
-      margin: 0;
-      padding: 0;
-      color: #333;
-    }
-    header {
-      background: linear-gradient(to right, #4e54c8, #8f94fb);
-      padding: 20px;
-      color: white;
-      text-align: center;
-    }
-    h1 {
-      margin: 0;
-      font-size: 2.5em;
-      animation: fadeInDown 1s ease-in-out;
-    }
-    section {
-      padding: 40px 20px;
-      text-align: center;
-      border-bottom: 1px solid #ccc;
-    }
-    h2 {
-      font-size: 1.8em;
-      margin-bottom: 10px;
-    }
-    .viz-container {
-      margin: 20px auto;
-      max-width: 1000px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
-      border-radius: 10px;
-      overflow: hidden;
-      background: white;
-    }
-    .tableau-viz {
-      width: 100%;
-      height: 600px;
-      border: none;
-    }
-    .loading-message {
-      padding: 40px;
-      text-align: center;
-      color: #666;
-      font-style: italic;
-    }
-    @keyframes fadeInDown {
-      from {opacity: 0; transform: translateY(-20px);}
-      to {opacity: 1; transform: translateY(0);}
-    }
-    .dashboard-link {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 8px 16px;
-      background: #4e54c8;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      font-size: 0.9em;
-    }
-    .dashboard-link:hover {
-      background: #3a3f9a;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 Final Project - Clothing Store Sales Analysis</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5e6cc, #d9b3a8);
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(90deg, #ff6f61, #d9b3a8);
+            color: white;
+            animation: fadeIn 1s ease-in;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        nav a {
+            text-decoration: none;
+            color: #ff6f61;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #d9b3a8;
+        }
+        .section {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: slideUp 1s ease-out;
+        }
+        .section h2 {
+            color: #ff6f61;
+            border-bottom: 2px solid #d9b3a8;
+            padding-bottom: 0.5rem;
+        }
+        .viz-container {
+            margin: 1rem 0;
+            border-radius: 10px;
+            overflow: hidden;
+            background: white;
+            transition: transform 0.3s;
+        }
+        .viz-container:hover {
+            transform: scale(1.01);
+        }
+        .tableau-viz {
+            width: 100%;
+            height: 600px;
+            border: none;
+        }
+        .loading-message {
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            font-style: italic;
+            display: none;
+        }
+        .dashboard-link {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: #4e54c8;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9em;
+            transition: background 0.3s;
+        }
+        .dashboard-link:hover {
+            background: #3a3f9a;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @media (max-width: 768px) {
+            .tableau-viz {
+                height: 400px;
+            }
+            nav {
+                flex-direction: column;
+                text-align: center;
+            }
+            .section {
+                padding: 1rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header>
-    <h1>📊 ניתוח מכירות ורווחים בחנות בגדים</h1>
-    <p>פרויקט סיום בקורס ויזואליזציה של מידע</p>
-  </header>
-  
-  <section id="dashboard1">
-    <h2>🧥 דאשבורד ראשון - תפעולי</h2>
-    <div class="viz-container">
-      <iframe 
-        class="tableau-viz"
-        src="https://public.tableau.com/views/DASH3_17468755147630/sheet1?:embed=yes&:display_count=no&:showVizHome=no&:origin=viz_share_link&:device=desktop"
-        onload="this.style.display='block'; this.nextElementSibling.style.display='none';">
-      </iframe>
-      <div class="loading-message">טוען דאשבורד...</div>
-    </div>
-    <a href="https://public.tableau.com/views/DASH3_17468755147630/sheet1" target="_blank" class="dashboard-link">
-      פתח דאשבורד בחלון נפרד 🔗
-    </a>
-  </section>
+    <header>
+        <h1>🎯 Sales and Profit Analysis for Clothing Store</h1>
+    </header>
+    <nav>
+        <a href="#dashboard1">🧥 Operational Dashboard</a>
+        <a href="#dashboard2">🛒 Strategic Dashboard</a>
+        <a href="#dashboard3">🏷️ Management Dashboard</a>
+        <a href="#about">📋 About the Project</a>
+    </nav>
 
-  <section id="dashboard2">
-    <h2>🛒 דאשבורד שני - אסטרטגי</h2>
-    <div class="viz-container">
-      <iframe 
-        class="tableau-viz"
-        src="https://public.tableau.com/views/DASH3_17468755147630/sheet2?:embed=yes&:display_count=no&:showVizHome=no&:origin=viz_share_link&:device=desktop"
-        onload="this.style.display='block'; this.nextElementSibling.style.display='none';">
-      </iframe>
-      <div class="loading-message">טוען דאשבורד...</div>
+    <div class="section" id="dashboard1">
+        <h2>1. 🧥 Operational Dashboard</h2>
+        <div class="viz-container">
+            <iframe 
+                class="tableau-viz"
+                src="https://public.tableau.com/views/DASH3_17468755147630/sheet1?:embed=yes&:display_count=no&:showVizHome=no&:origin=viz_share_link&:device=desktop"
+                onload="this.style.display='block'; this.nextElementSibling.style.display='none';">
+            </iframe>
+            <div class="loading-message">Loading dashboard...</div>
+        </div>
+        <a href="https://public.tableau.com/views/DASH3_17468755147630/sheet1" target="_blank" class="dashboard-link">
+            Open Dashboard in New Window 🔗
+        </a>
     </div>
-    <a href="https://public.tableau.com/views/DASH3_17468755147630/sheet2" target="_blank" class="dashboard-link">
-      פתח דאשבורד בחלון נפרד 🔗
-    </a>
-  </section>
 
-  <section id="dashboard3">
-    <h2>🏷️ דאשבורד שלישי - ניהולי</h2>
-    <div class="viz-container">
-      <iframe 
-        class="tableau-viz"
-        src="https://public.tableau.com/views/DASH3_17468755147630/sheet3?:embed=yes&:display_count=no&:showVizHome=no&:origin=viz_share_link&:device=desktop"
-        onload="this.style.display='block'; this.nextElementSibling.style.display='none';">
-      </iframe>
-      <div class="loading-message">טוען דאשבורד...</div>
+    <div class="section" id="dashboard2">
+        <h2>2. 🛒 Strategic Dashboard</h2>
+        <div class="viz-container">
+            <iframe 
+                class="tableau-viz"
+                src="https://public.tableau.com/views/DASH3_17468755147630/sheet2?:embed=yes&:display_count=no&:showVizHome=no&:origin=viz_share_link&:device=desktop"
+                onload="this.style.display='block'; this.nextElementSibling.style.display='none';">
+            </iframe>
+            <div class="loading-message">Loading dashboard...</div>
+        </div>
+        <a href="https://public.tableau.com/views/DASH3_17468755147630/sheet2" target="_blank" class="dashboard-link">
+            Open Dashboard in New Window 🔗
+        </a>
     </div>
-    <a href="https://public.tableau.com/views/DASH3_17468755147630/sheet3" target="_blank" class="dashboard-link">
-      פתח דאשבורד בחלון נפרד 🔗
-    </a>
-  </section>
 
-  <section>
-    <h2>📋 על הפרויקט</h2>
-    <p>פרויקט זה מציג ניתוח מקיף של נתוני מכירות בחנות בגדים, כולל השוואות בין אזורים, ערוצי מכירה ומותגים שונים.</p>
-    <p>הדאשבורדים נוצרו באמצעות Tableau Public ומציגים תובנות עסקיות חשובות לקבלת החלטות.</p>
-  </section>
+    <div class="section" id="dashboard3">
+        <h2>3. 🏷️ Management Dashboard</h2>
+        <div class="viz-container">
+            <iframe 
+                class="tableau-viz"
+                src="https://public.tableau.com/views/DASH3_17468755147630/sheet3?:embed=yes&:display_count=no&:showVizHome=no&:origin=viz_share_link&:device=desktop"
+                onload="this.style.display='block'; this.nextElementSibling.style.display='none';">
+            </iframe>
+            <div class="loading-message">Loading dashboard...</div>
+        </div>
+        <a href="https://public.tableau.com/views/DASH3_17468755147630/sheet3" target="_blank" class="dashboard-link">
+            Open Dashboard in New Window 🔗
+        </a>
+    </div>
+
+    <div class="section" id="about">
+        <h2>📋 About the Project</h2>
+        <p>This project presents a comprehensive analysis of clothing store sales data, including comparisons across regions, sales channels, and various brands.</p>
+        <p>The dashboards were created using Tableau Public and provide valuable business insights for decision-making.</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelector(link.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+
+            // Ensure iframes are initially hidden and show loading message
+            document.querySelectorAll('.tableau-viz').forEach(iframe => {
+                iframe.style.display = 'none';
+            });
+            document.querySelectorAll('.loading-message').forEach(msg => {
+                msg.style.display = 'block';
+            });
+        });
+    </script>
 </body>
 </html>
