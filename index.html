@@ -1,39 +1,92 @@
-<script type="text/javascript" src="https://public.tableau.com/javascripts/api/tableau-2.min.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const urls = [
-            {
-                containerId: 'tableau-viz-1',
-                url: "https://public.tableau.com/views/DASH3_17468755147630/sheet6"
-            },
-            {
-                containerId: 'tableau-viz-2',
-                url: "https://public.tableau.com/views/DASH3_17468755147630/sheet7"
-            },
-            {
-                containerId: 'tableau-viz-3',
-                url: "https://public.tableau.com/views/DASH3_17468755147630/sheet8"
-            }
-        ];
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🎯 פרויקט סיום - ניתוח מכירות בחנות בגדים</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #f0f8ff, #e0eafc);
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
 
-        urls.forEach(item => {
-            const containerDiv = document.getElementById(item.containerId);
-            const vizUrl = item.url;
-            const options = {
-                width: "100%",
-                height: "500px",
-                hideToolbar: true,
-                hideTabs: true
-            };
-            new tableau.Viz(containerDiv, vizUrl, options);
-        });
+    header {
+      background: linear-gradient(to right, #4e54c8, #8f94fb);
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
 
-        // Smooth scrolling for nav
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', e => {
-                e.preventDefault();
-                document.querySelector(link.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-    });
-</script>
+    h1 {
+      margin: 0;
+      font-size: 2.5em;
+      animation: fadeInDown 1s ease-in-out;
+    }
+
+    section {
+      padding: 40px 20px;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+    }
+
+    h2 {
+      font-size: 1.8em;
+      margin-bottom: 10px;
+    }
+
+    .viz-container {
+      margin: 20px auto;
+      max-width: 1000px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+    }
+
+    @keyframes fadeInDown {
+      from {opacity: 0; transform: translateY(-20px);}
+      to {opacity: 1; transform: translateY(0);}
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>📊 ניתוח מכירות ורווחים בחנות בגדים</h1>
+    <p>פרויקט סיום בקורס ויזואליזציה של מידע</p>
+  </header>
+
+  <section id="operational">
+    <h2>🧥 מכירות לפי קטגוריות ואזורים</h2>
+    <p>סקירה של הקטגוריות הכי נמכרות בכל אזור בארץ 🎯</p>
+    <div class="viz-container">
+      <iframe src="https://public.tableau.com/views/DASH1_17115312345670/קטגוריותואזורים?:embed=true&:display_count=yes"></iframe>
+    </div>
+  </section>
+
+  <section id="management">
+    <h2>🛒 השוואת ערוצי מכירה לאורך זמן</h2>
+    <p>אונליין מול חנויות פיזיות בשנים האחרונות 📈</p>
+    <div class="viz-container">
+      <iframe src="https://public.tableau.com/views/DASH2_17465432109876/מכירותבערוצים?:embed=true&:display_count=yes"></iframe>
+    </div>
+  </section>
+
+  <section id="strategic">
+    <h2>🏷️ השוואת מותגים ורווחיות</h2>
+    <p>איזה מותג הכי רווחי? ומאיזה צבע כדאי להיפרד? 👕📉</p>
+    <div class="viz-container">
+      <iframe src="https://public.tableau.com/views/DASH3_17468755147630/sheet6?:embed=true&:display_count=yes"></iframe>
+    </div>
+  </section>
+
+</body>
+</html>
