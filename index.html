@@ -55,6 +55,10 @@
             height: 500px;
             margin: 1rem 0;
         }
+        .error-message {
+            color: red;
+            font-weight: bold;
+        }
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -89,21 +93,24 @@
         <h2>📊 Operational Dashboard</h2>
         <p>Explore our operational insights with interactive data.</p>
         <div id="tableau-viz-1" class="tableau-viz"></div>
+        <div id="error-1" class="error-message"></div>
     </div>
 
     <div class="section" id="strategic">
         <h2>🛒 Strategic Dashboard</h2>
         <p>Analyze strategic trends and performance over time.</p>
         <div id="tableau-viz-2" class="tableau-viz"></div>
+        <div id="error-2" class="error-message"></div>
     </div>
 
     <div class="section" id="management">
         <h2>💸 Management Dashboard</h2>
         <p>Review management-level profitability and insights.</p>
         <div id="tableau-viz-3" class="tableau-viz"></div>
+        <div id="error-3" class="error-message"></div>
     </div>
 
-    <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.js"></script>
+    <script src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const options = {
@@ -112,23 +119,31 @@
                 height: "100%"
             };
 
-            // Operational Dashboard
-            const viz1 = new tableau.vizEmbedding.Viz(document.getElementById("tableau-viz-1"), "https://public.tableau.com/views/DASH3_17468755147630/sheet1?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", options);
-            viz1.addEventListener(tableau.vizEmbedding.VizEventType.VizLoadError, (event) => {
-                console.error("Viz Load Error:", event.getErrorCode(), event.getErrorMessage());
-            });
+            // Function to initialize Tableau viz
+            function initViz(vizContainerId, url, errorDivId) {
+                if (typeof tableau === 'undefined') {
+                    document.getElementById(errorDivId).textContent = "Error: Tableau API not loaded.";
+                    console.error("Tableau API not loaded.");
+                    return;
+                }
 
-            // Strategic Dashboard
-            const viz2 = new tableau.vizEmbedding.Viz(document.getElementById("tableau-viz-2"), "https://public.tableau.com/views/DASH3_17468755147630/sheet2?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", options);
-            viz2.addEventListener(tableau.vizEmbedding.VizEventType.VizLoadError, (event) => {
-                console.error("Viz Load Error:", event.getErrorCode(), event.getErrorMessage());
-            });
+                const viz = new tableau.vizEmbedding.Viz(
+                    document.getElementById(vizContainerId),
+                    url,
+                    options
+                );
 
-            // Management Dashboard
-            const viz3 = new tableau.vizEmbedding.Viz(document.getElementById("tableau-viz-3"), "https://public.tableau.com/views/DASH3_17468755147630/sheet3?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", options);
-            viz3.addEventListener(tableau.vizEmbedding.VizEventType.VizLoadError, (event) => {
-                console.error("Viz Load Error:", event.getErrorCode(), event.getErrorMessage());
-            });
+                viz.addEventListener(tableau.vizEmbedding.VizEventType.VizLoadError, (event) => {
+                    const errorDiv = document.getElementById(errorDivId);
+                    errorDiv.textContent = `Error: ${event.getErrorCode()} - ${event.getErrorMessage()}`;
+                    console.error("Viz Load Error:", event.getErrorCode(), event.getErrorMessage());
+                });
+            }
+
+            // Initialize all visualizations
+            initViz("tableau-viz-1", "https://public.tableau.com/views/DASH3_17468755147630/sheet6?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", "error-1");
+            initViz("tableau-viz-2", "https://public.tableau.com/views/DASH3_17468755147630/sheet7?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", "error-2");
+            initViz("tableau-viz-3", "https://public.tableau.com/views/DASH3_17468755147630/sheet8?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", "error-3");
 
             // Smooth scrolling for navigation
             const navLinks = document.querySelectorAll('nav a');
