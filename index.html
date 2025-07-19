@@ -1,82 +1,144 @@
 <!DOCTYPE html>
-<html lang="he">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ניתוח מכירות - חנות בגדים 👗🛍️</title>
-
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(to bottom right, #fef9f9, #e0f7fa);
-      color: #333;
-    }
-
-    header {
-      background-color: #ff8a65;
-      color: white;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 2em;
-    }
-
-    .section-title {
-      text-align: center;
-      margin-top: 40px;
-      font-size: 1.5em;
-    }
-
-    .viz-container {
-      display: flex;
-      justify-content: center;
-      margin: 30px;
-      animation: fadeIn 1.5s ease-in-out;
-    }
-
-    iframe {
-      border: none;
-      width: 90%;
-      height: 600px;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #fce4ec;
-      color: #444;
-      margin-top: 40px;
-    }
-
-    @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(30px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fashion Analytics Hub</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5e6cc, #d9b3a8);
+            color: #333;
+            line-height: 1.6;
+        }
+        header {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(90deg, #ff6f61, #d9b3a8);
+            color: white;
+            animation: fadeIn 1s ease-in;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+        }
+        nav a {
+            text-decoration: none;
+            color: #ff6f61;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #d9b3a8;
+        }
+        .section {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: slideUp 1s ease-out;
+        }
+        .section h2 {
+            color: #ff6f61;
+            border-bottom: 2px solid #d9b3a8;
+            padding-bottom: 0.5rem;
+        }
+        .tableau-viz {
+            width: 100%;
+            height: 500px;
+            margin: 1rem 0;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @media (max-width: 768px) {
+            .tableau-viz {
+                height: 300px;
+            }
+            nav {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
-
 <body>
+    <header>
+        <h1>Fashion Analytics Hub 🎉</h1>
+    </header>
+    <nav>
+        <a href="#operational">📊 Operational Dashboard</a>
+        <a href="#strategic">🛒 Strategic Dashboard</a>
+        <a href="#management">💸 Management Dashboard</a>
+    </nav>
 
-  <header>
-    <h1>🎽 דאשבורד ניתוח מכירות - חנות בגדים</h1>
-    <p>תובנות שיעזרו לנו להבין מה באמת עובד בחנות 💡</p>
-  </header>
+    <div class="section" id="operational">
+        <h2>📊 Operational Dashboard</h2>
+        <p>Explore our operational insights with interactive data.</p>
+        <div id="tableau-viz-1" class="tableau-viz"></div>
+    </div>
 
-  <div class="section-title">📊 מכירות לפי קטגוריות ואיזורים</div>
-  <div class="viz-container">
-    <iframe src="https://public.tableau.com/views/DASH3_17468755147630/sheet6?:embed=true&:display_count=yes" allowfullscreen></iframe>
-  </div>
+    <div class="section" id="strategic">
+        <h2>🛒 Strategic Dashboard</h2>
+        <p>Analyze strategic trends and performance over time.</p>
+        <div id="tableau-viz-2" class="tableau-viz"></div>
+    </div>
 
-  <footer>
-    נבנה במסגרת עבודת סיום בקורס ויזואליזציה של מידע ✨
-  </footer>
+    <div class="section" id="management">
+        <h2>💸 Management Dashboard</h2>
+        <p>Review management-level profitability and insights.</p>
+        <div id="tableau-viz-3" class="tableau-viz"></div>
+    </div>
 
+    <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.latest.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const options = {
+                device: "desktop",
+                width: "100%",
+                height: "100%"
+            };
+
+            // Operational Dashboard
+            const viz1 = new tableau.vizEmbedding.Viz(document.getElementById("tableau-viz-1"), "https://public.tableau.com/views/DASH3_17468755147630/sheet1?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", options);
+            viz1.addEventListener(tableau.vizEmbedding.VizEventType.VizLoadError, (event) => {
+                console.error("Viz Load Error:", event.getErrorCode(), event.getErrorMessage());
+            });
+
+            // Strategic Dashboard
+            const viz2 = new tableau.vizEmbedding.Viz(document.getElementById("tableau-viz-2"), "https://public.tableau.com/views/DASH3_17468755147630/sheet2?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", options);
+            viz2.addEventListener(tableau.vizEmbedding.VizEventType.VizLoadError, (event) => {
+                console.error("Viz Load Error:", event.getErrorCode(), event.getErrorMessage());
+            });
+
+            // Management Dashboard
+            const viz3 = new tableau.vizEmbedding.Viz(document.getElementById("tableau-viz-3"), "https://public.tableau.com/views/DASH3_17468755147630/sheet3?:language=en-US&publish=yes&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link", options);
+            viz3.addEventListener(tableau.vizEmbedding.VizEventType.VizLoadError, (event) => {
+                console.error("Viz Load Error:", event.getErrorCode(), event.getErrorMessage());
+            });
+
+            // Smooth scrolling for navigation
+            const navLinks = document.querySelectorAll('nav a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    document.querySelector(link.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+        });
+    </script>
 </body>
 </html>
